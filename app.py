@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///url_db.db'
 db = SQLAlchemy(app)
 
 
-
+#logic for url shortner
 
 def generate_short_url():                                 #generate random string for short url
     characters = string.ascii_letters + string.digits           #includes all alphanumeric chars
@@ -27,7 +27,7 @@ def generate_short_url():                                 #generate random strin
 
 
 
-
+#route for index , generating shortend url
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -45,6 +45,9 @@ def index():
     return render_template('index.html')
 
 
+#mapping a shortened URL to the original, full UR
+
+
 app.route("/<short_url>")
 def redirect_to_url(short_url):
     link = URL.query.filter_by(short_url=short_url)             #function queries the database to find the entry in the URL table
@@ -52,6 +55,9 @@ def redirect_to_url(short_url):
 
     return redirect(link.og_url)            #if a matching short_url is found in the db, the func retrieves
                                             #the corresponding original_url from the link object.
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
