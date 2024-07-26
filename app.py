@@ -31,7 +31,15 @@ def generate_short_url():                                 #generate random strin
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        og_url = request.form['original_url']
+        short_url = generate_short_url()
+        new_url = URL(og_url= og_url ,short_url = short_url)
+        db.session.add(new_url)
+        db.session.commit()
+        return render_template('result.html' , short_url= short_url)
     return render_template('index.html')
+
 
 
 
