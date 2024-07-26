@@ -35,13 +35,23 @@ def index():
         og_url = request.form['original_url']
         short_url = generate_short_url()
         new_url = URL(og_url= og_url ,short_url = short_url)
-        db.session.add(new_url)
-        db.session.commit()
+
+        db.session.add(new_url)                 #This line adds the new URL instance to the current database session.
+                                                #This operation prepares the object to be written to the database
+
+        db.session.commit()                     # commits the current transaction to the database
+
         return render_template('result.html' , short_url= short_url)
     return render_template('index.html')
 
 
+app.route("/<short_url>")
+def redirect_to_url(short_url):
+    link = URL.query.filter_by(short_url=short_url)             #function queries the database to find the entry in the URL table
+                                                                #where the short_url column matches the provided short_url
 
+    return redirect(link.og_url)            #if a matching short_url is found in the db, the func retrieves
+                                            #the corresponding original_url from the link object.
 
 if __name__ == "__main__":
     app.run(debug=True)
