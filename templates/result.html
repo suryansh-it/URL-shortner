@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+
+<div class="container">
+  <h1>Your Shortened URL</h1>
+  <a
+    href="{{ url_for('redirect_to_url', short_url=short_url) }}"
+    target="_blank"
+  >
+    {{ request.host_url }}{{ short_url }}
+  </a>
+</div>
+
+{% endblock %}
