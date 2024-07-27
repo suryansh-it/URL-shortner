@@ -17,6 +17,9 @@ def create_app():
     with app.app_context():             #Ensure that database operations like db.create_all()
                                         #are performed within an application context.
        
+    #with :  Ensures that resources such as files, network connections, or database sessions
+            # are properly cleaned up (e.g., closed or released) after use
+
         db.create_all()  # Creating tables based on defined models
 
     app_routes(app)
