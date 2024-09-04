@@ -1,5 +1,5 @@
 from flask import Flask , render_template , request , redirect , url_for ,flash
-from flask_sqlalchemy import SQLAlchemy
+
 import string , random
 from models import db,URL  # Imported models here to avoid circular imports
 
